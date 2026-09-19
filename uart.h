@@ -15,4 +15,7 @@ uint8_t UART_Receive(void);
 /* Transmit a null-terminated string */
 void UART_SendString(const char *str);
 
+/* Transmit an unsigned 16-bit integer */
+void UART_SendNumber(uint16_t number);
+
 #endif

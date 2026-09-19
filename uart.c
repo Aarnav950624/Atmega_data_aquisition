@@ -63,3 +63,31 @@ void UART_SendString(const char *str)
         str++;
     }
 }
+
+void UART_SendNumber(uint16_t number)
+{
+    char digits[5];
+    uint8_t i = 0;
+
+    /* Special case for zero */
+    if (number == 0)
+    {
+        UART_Transmit('0');
+        return;
+    }
+
+    /* Extract digits from right to left */
+    while (number > 0)
+    {
+        digits[i] = (number % 10) + '0';
+        number /= 10;
+        i++;
+    }
+
+    /* Transmit digits in correct order */
+    while (i > 0)
+    {
+        i--;
+        UART_Transmit(digits[i]);
+    }
+}
