@@ -16,10 +16,6 @@
 
 /*
  * Convert BCD to decimal
- *
- * Example:
- *
- * 0x25 BCD -> 25 decimal
  */
 static uint8_t BCD_To_Decimal(uint8_t bcd)
 {
@@ -29,10 +25,6 @@ static uint8_t BCD_To_Decimal(uint8_t bcd)
 
 /*
  * Convert decimal to BCD
- *
- * Example:
- *
- * 25 decimal -> 0x25 BCD
  */
 static uint8_t Decimal_To_BCD(uint8_t decimal)
 {
