@@ -6,14 +6,15 @@
 #include "adc.h"
 #include "i2c.h"
 #include "ds3231.h"
+#include "spi.h"
+#include "bmp280.h"
 
 
 /*
- * Simple software delay
+ * Simple software delay.
  *
- * Used only for initial testing.
- * Later we can replace this with
- * a Timer-based delay.
+ * This will later be replaced by
+ * a hardware timer.
  */
 static void delay_ms(uint16_t ms)
 {
@@ -36,94 +37,89 @@ int main(void)
     uint16_t adc_value;
 
     DS3231_Time rtc_time;
-
     uint8_t rtc_status;
 
+    int32_t temperature;
+    uint32_t pressure;
+
+    uint8_t bmp280_status;
+
 
     /*
-     * --------------------------------
-     * Initialize peripherals
-     * --------------------------------
+     * Initialize peripherals.
      */
-
-    /* Initialize UART */
     UART_Init();
 
-    /* Initialize ADC */
     ADC_Init();
 
-    /* Initialize I2C/TWI */
     I2C_Init();
+
+    SPI_Init();
 
 
     /*
-     * Give peripherals some time
-     * after power-up.
+     * Allow peripherals to stabilize.
      */
     delay_ms(100);
 
 
     /*
-     * --------------------------------
-     * Startup message
-     * --------------------------------
+     * Startup message.
      */
-
     UART_SendString("\r\n");
     UART_SendString("ATmega16 Data Acquisition System\r\n");
     UART_SendString("--------------------------------\r\n");
 
 
     /*
-     * --------------------------------
-     * Initial RTC time
-     * --------------------------------
-     *
-     * Change these values before
-     * programming the ATmega16.
-     *
-     * day:
-     *
-     * 1 = Sunday
-     * 2 = Monday
-     * 3 = Tuesday
-     * 4 = Wednesday
-     * 5 = Thursday
-     * 6 = Friday
-     * 7 = Saturday
+     * Initialize DS3231 RTC.
      */
-
     rtc_time.seconds = 0;
     rtc_time.minutes = 45;
     rtc_time.hours   = 14;
 
-    rtc_time.day     = 7;
-    rtc_time.date    = 20;
-    rtc_time.month   = 9;
-    rtc_time.year    = 26;
+    rtc_time.day      = 7;
+    rtc_time.date     = 20;
+    rtc_time.month    = 9;
+    rtc_time.year     = 26;
 
 
-    /*
-     * --------------------------------
-     * Write initial time to DS3231
-     * --------------------------------
-     */
+    rtc_status =
+        DS3231_SetTime(&rtc_time);
 
-    rtc_status = DS3231_SetTime(&rtc_time);
-
-
-    /*
-     * Check whether RTC communication
-     * was successful.
-     */
 
     if (rtc_status == I2C_OK)
     {
-        UART_SendString("RTC initialized successfully\r\n");
+        UART_SendString(
+            "RTC initialized successfully\r\n"
+        );
     }
     else
     {
-        UART_SendString("RTC initialization FAILED\r\n");
+        UART_SendString(
+            "RTC initialization FAILED\r\n"
+        );
+    }
+
+
+    /*
+     * Initialize BMP280.
+     */
+    bmp280_status =
+        BMP280_Init();
+
+
+    if (bmp280_status == 0)
+    {
+        UART_SendString(
+            "BMP280 initialized successfully\r\n"
+        );
+    }
+    else
+    {
+        UART_SendString(
+            "BMP280 initialization FAILED\r\n"
+        );
     }
 
 
@@ -131,42 +127,27 @@ int main(void)
 
 
     /*
-     * --------------------------------
-     * Main loop
-     * --------------------------------
+     * Main data acquisition loop.
      */
-
     while (1)
     {
         /*
-         * Read current time from DS3231
+         * -------------------------
+         * DS3231
+         * -------------------------
          */
-        rtc_status = DS3231_GetTime(&rtc_time);
+        rtc_status =
+            DS3231_GetTime(&rtc_time);
 
-
-        /*
-         * Check whether RTC read was
-         * successful.
-         */
 
         if (rtc_status == I2C_OK)
         {
-            /*
-             * -------------------------
-             * Print DATE
-             * -------------------------
-             *
-             * DATE: DD/MM/YY
-             */
-
             UART_SendString("DATE: ");
 
             UART_SendNumber(rtc_time.date);
-
             UART_Transmit('/');
 
             UART_SendNumber(rtc_time.month);
-
             UART_Transmit('/');
 
             UART_SendNumber(rtc_time.year);
@@ -174,22 +155,12 @@ int main(void)
             UART_SendString("\r\n");
 
 
-            /*
-             * -------------------------
-             * Print TIME
-             * -------------------------
-             *
-             * TIME: HH:MM:SS
-             */
-
             UART_SendString("TIME: ");
 
             UART_SendNumber(rtc_time.hours);
-
             UART_Transmit(':');
 
             UART_SendNumber(rtc_time.minutes);
-
             UART_Transmit(':');
 
             UART_SendNumber(rtc_time.seconds);
@@ -198,25 +169,20 @@ int main(void)
         }
         else
         {
-            /*
-             * RTC communication failed
-             */
-            UART_SendString("RTC READ ERROR\r\n");
+            UART_SendString(
+                "RTC READ ERROR\r\n"
+            );
         }
 
 
         /*
-         * --------------------------------
-         * Read ADC channel 0
-         * --------------------------------
+         * -------------------------
+         * Potentiometer ADC
+         * -------------------------
          */
+        adc_value =
+            ADC_Read(0);
 
-        adc_value = ADC_Read(0);
-
-
-        /*
-         * Send ADC value through UART
-         */
 
         UART_SendString("ADC: ");
 
@@ -226,12 +192,75 @@ int main(void)
 
 
         /*
-         * Wait approximately 1 second
+         * -------------------------
+         * BMP280
+         * -------------------------
          */
+        if (bmp280_status == 0)
+        {
+            if (BMP280_ReadData(
+                    &temperature,
+                    &pressure) == 0)
+            {
+                UART_SendString(
+                    "TEMPERATURE: "
+                );
 
-        delay_ms(1000);
+                /*
+                 * Temperature is stored
+                 * as hundredths of °C.
+                 *
+                 * Example:
+                 * 2534 = 25.34 °C
+                 */
+                if (temperature < 0)
+                {
+                    UART_Transmit('-');
+                    temperature = -temperature;
+                }
+
+                UART_SendNumber(
+                    (uint16_t)(temperature / 100)
+                );
+
+                UART_Transmit('.');
+
+                UART_SendNumber(
+                    (uint16_t)(temperature % 100)
+                );
+
+                UART_SendString(
+                    " C\r\n"
+                );
+
+
+                UART_SendString(
+                    "PRESSURE: "
+                );
+
+                UART_SendNumber(
+                    (uint16_t)pressure
+                );
+
+                UART_SendString(
+                    " Pa\r\n"
+                );
+            }
+            else
+            {
+                UART_SendString(
+                    "BMP280 READ ERROR\r\n"
+                );
+            }
+        }
 
 
         UART_SendString("\r\n");
+
+
+        /*
+         * Wait approximately one second.
+         */
+        delay_ms(1000);
     }
 }
