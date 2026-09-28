@@ -1,3 +1,16 @@
+/******************************************************************************
+ * COPYRIGHT (C) 2026 Aarnav Patel
+ *
+ * @file uart.h
+ * @brief UART driver for the ATmega16 multiprotocol embedded data acquisition system
+ *
+ * provides functions for initializing and using the UART interface
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
 #include <avr/io.h>
 #include <stdint.h>
 

@@ -1,3 +1,27 @@
+/******************************************************************************
+ * COPYRIGHT (C) 2026 Aarnav Patel
+ *
+ * @file i2c.c
+ * @brief the I2C driver for the ATmega16 multiprotocol embedded data acquisition system
+ *
+ * provides functions for initializing and using the I2C interface
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
+#include <avr/io.h>
+#include <stdint.h>
+
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
 #include <avr/io.h>
 #include <stdint.h>
 

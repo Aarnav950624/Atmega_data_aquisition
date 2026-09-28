@@ -1,3 +1,16 @@
+/******************************************************************************
+ * COPYRIGHT (C) 2026 Aarnav Patel
+ *
+ * @file spi.h
+ * @brief spi driver for the ATmega16 multiprotocol embedded data acquisition system
+ *
+ * provides functions for initializing and using the SPI interface
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
 #ifndef SPI_H
 #define SPI_H
 

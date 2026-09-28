@@ -1,3 +1,27 @@
+/******************************************************************************
+ * COPYRIGHT (C) 2026 Aarnav Patel
+ *
+ * @file ds3231.c
+ * @brief the DS3231 RTC driver for the ATmega16 multiprotocol embedded data acquisition system
+ *
+ * provides functions for initializing and using the DS3231 real-time clock
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
+#include "ds3231.h"
+#include "i2c.h"
+
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
 #include "ds3231.h"
 #include "i2c.h"
 

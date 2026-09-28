@@ -1,3 +1,16 @@
+/******************************************************************************
+ * COPYRIGHT (C) 2026 Aarnav Patel
+ *
+ * @file ds3231.h
+ * @brief DS3231 RTC driver for the ATmega16 multiprotocol embedded data acquisition system
+ *
+ * provides functions for initializing and using the DS3231 RTC
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
 #ifndef DS3231_H
 #define DS3231_H
 

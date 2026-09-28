@@ -1,3 +1,19 @@
+/******************************************************************************
+ * COPYRIGHT (C) 2026 Aarnav Patel
+ *
+ * @file main.c
+ * @brief the main module of the ATmega16 multiprotocol embedded data acquisition system
+ *
+ * regulates and has the main loop for the data acquisition system, 
+ * which reads data from the RTC, BMP280, and ADC, packs it into a record, and stores it in the EEPROM. 
+ * It also sends the data over UART for monitoring.
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
 /*
  * ============================================================
  * ATmega16 Multiprotocol Embedded Data Acquisition System
@@ -17,6 +33,7 @@
 
 #include <avr/io.h>
 #include <stdint.h>
+#include <util/delay.h>
 
 #include "config.h"
 #include "uart.h"
@@ -91,40 +108,10 @@ static DataRecord record;
 
 static void Delay_ms(uint16_t milliseconds)
 {
-    uint16_t i;
-    uint16_t j;
-
-    for (i = 0; i < milliseconds; i++)
+    while (milliseconds--)
     {
-        for (j = 0; j < 1000; j++)
-        {
-            asm volatile ("nop");
-        }
+        _delay_ms(1);
     }
-}
-
-
-/* ============================================================
- * SEND SIGNED 32-BIT NUMBER THROUGH UART
- * ============================================================
- */
-
-static void UART_SendSigned32(int32_t number)
-{
-    uint32_t magnitude;
-
-    if (number < 0)
-    {
-        UART_Transmit('-');
-
-        magnitude = (uint32_t)(-number);
-    }
-    else
-    {
-        magnitude = (uint32_t)number;
-    }
-
-    UART_SendNumber32(magnitude);
 }
 
 

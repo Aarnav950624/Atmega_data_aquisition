@@ -1,3 +1,27 @@
+/******************************************************************************
+ * COPYRIGHT (C) 2026 Aarnav Patel
+ *
+ * @file bmp280.c
+ * @brief the BMP280 pressure sensor driver for the ATmega16 multiprotocol embedded data acquisition system
+ *
+ * provides functions for initializing and using the BMP280 pressure sensor
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
+#include <stdint.h>
+
+#include "bmp280.h"
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
 #include <stdint.h>
 
 #include "bmp280.h"
@@ -381,11 +405,11 @@ static int32_t BMP280_CompensateTemperature(
      * Second temperature compensation term.
      */
     var2 =
-        (((((int32_t)(raw_temperature >> 4)) -
-           (int32_t)calibration.dig_T1) *
-          (((int32_t)(raw_temperature >> 4)) -
-           (int32_t)calibration.dig_T1)) >> 12) *
-          (int32_t)calibration.dig_T3) >> 14;
+    (((((int32_t)(raw_temperature >> 4) -
+        (int32_t)calibration.dig_T1) *
+       ((int32_t)(raw_temperature >> 4) -
+        (int32_t)calibration.dig_T1)) >> 12) *
+     (int32_t)calibration.dig_T3) >> 14;
 
 
     /*

@@ -1,3 +1,29 @@
+/******************************************************************************
+ * COPYRIGHT (C) 2026 Aarnav Patel
+ *
+ * @file at24c256.h
+ * @brief the AT24C256 EEPROM driver for the ATmega16 multiprotocol embedded data acquisition system
+ *
+ * provides functions for initializing and using the AT24C256 EEPROM
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
+#ifndef AT24C256_H
+#define AT24C256_H
+
+#include <stdint.h>
+
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
 #ifndef AT24C256_H
 #define AT24C256_H
 

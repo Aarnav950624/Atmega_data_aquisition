@@ -1,3 +1,28 @@
+/******************************************************************************
+ * COPYRIGHT (C) 2026 Aarnav Patel
+ *
+ * @file bmp280.h
+ * @brief the BMP280 pressure sensor driver for the ATmega16 multiprotocol embedded data acquisition system
+ *
+ * provides functions for initializing and using the BMP280 pressure sensor
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
+#ifndef BMP280_H
+#define BMP280_H
+
+#include <stdint.h>
+ *
+ * @author Aarnav Patel
+ * @date September 2026
+ *
+ *****************************************************************************/
+
+
 #ifndef BMP280_H
 #define BMP280_H
 
