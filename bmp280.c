@@ -1,4 +1,4 @@
-/******************************************************************************
+/*
  * COPYRIGHT (C) 2026 Aarnav Patel
  *
  * @file bmp280.c
@@ -9,22 +9,13 @@
  * @author Aarnav Patel
  * @date September 2026
  *
- *****************************************************************************/
+ */
 
 
 #include <stdint.h>
 
 #include "bmp280.h"
- *
- * @author Aarnav Patel
- * @date September 2026
- *
- *****************************************************************************/
 
-
-#include <stdint.h>
-
-#include "bmp280.h"
 #include "spi.h"
 
 

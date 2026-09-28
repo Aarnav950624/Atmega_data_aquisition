@@ -1,4 +1,4 @@
-/******************************************************************************
+/*
  * COPYRIGHT (C) 2026 Aarnav Patel
  *
  * @file at24c256.c
@@ -9,22 +9,13 @@
  * @author Aarnav Patel
  * @date September 2026
  *
- *****************************************************************************/
+*/
 
 
 #include <stdint.h>
 
 #include "at24c256.h"
- *
- * @author Aarnav Patel
- * @date September 2026
- *
- *****************************************************************************/
 
-
-#include <stdint.h>
-
-#include "at24c256.h"
 #include "i2c.h"
 
 

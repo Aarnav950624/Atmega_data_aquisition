@@ -1,4 +1,4 @@
-/******************************************************************************
+/*
  * COPYRIGHT (C) 2026 Aarnav Patel
  *
  * @file at24c256.h
@@ -9,26 +9,12 @@
  * @author Aarnav Patel
  * @date September 2026
  *
- *****************************************************************************/
+ */
 
 
 #ifndef AT24C256_H
 #define AT24C256_H
-
 #include <stdint.h>
-
- *
- * @author Aarnav Patel
- * @date September 2026
- *
- *****************************************************************************/
-
-
-#ifndef AT24C256_H
-#define AT24C256_H
-
-#include <stdint.h>
-
 
 /*
  * AT24C256 7-bit I2C address.
