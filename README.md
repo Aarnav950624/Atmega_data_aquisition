@@ -217,13 +217,11 @@ Repeat
 
 The complete circuit schematic of the project is shown below.
 
-### Schematic Diagram
+## Schematic Diagram
 
-```markdown
 ![Complete Circuit Schematic](Documentation/Schematic/ATmega16_DAQ_Schematic.png)
 
 **Figure:** Complete circuit schematic of the ATmega16 Multiprotocol Embedded Data Acquisition System.
-```
 
 ---
 
