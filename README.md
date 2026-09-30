@@ -233,12 +233,10 @@ The developed system was tested by programming the ATmega16, checking peripheral
 
 > **[ PUTTY OUtput (UART) ]**
 
-
-```markdown
 ![PuTTY Output](Documentation/Results/UART_Output.png)
 
 **Figure:** PuTTY serial output showing acquired data from the ATmega16 system.
-```
+
 
 ## Build Requirements
 
