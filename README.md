@@ -235,7 +235,7 @@ The developed system was tested by programming the ATmega16, checking peripheral
 
 
 ```markdown
-![PuTTY Output](Documentation/Results/Putty_Output.png)
+![PuTTY Output](Documentation/Results/UART_Output.png)
 
 **Figure:** PuTTY serial output showing acquired data from the ATmega16 system.
 ```
