@@ -235,9 +235,9 @@ The developed system was tested by programming the ATmega16, checking peripheral
 
 
 ```markdown
-![Putty Output Images](Documentation/Schematic/UART_Output.png)
+![PuTTY Output](Documentation/Results/Putty_Output.png)
 
-**Figure:** The output of putty of Multiprotocol Embedded Data Acquisition System.
+**Figure:** PuTTY serial output showing acquired data from the ATmega16 system.
 ```
 
 ## Build Requirements
